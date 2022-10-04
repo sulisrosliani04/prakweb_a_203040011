@@ -1,75 +1,81 @@
 <?php
-require 'functions.php';
+
+require 'function.php';
 
 $id = $_GET['id'];
-$kmk = query("SELECT * FROM buku_komik WHERE id = $id")[0];
+$tp = query("SELECT * FROM buku WHERE id = $id")[0];
 
 if (isset($_POST['ubah'])) {
   if (ubah($_POST) > 0) {
     echo "<script>
-                    alert('Data Berhasil diubah!');
-                    document.location.href = 'index.php';
-                  </script>";
+                alert('Data Berhasil diubah');
+                document.location.href = 'index.php';
+            </script>";
   } else {
     echo "<script>
-                    alert('Data Gagal diubah!');
-                    document.location.href = 'index.php';
-                  </script>";
+                alert('Data Gagal diubah');
+                document.location.href = 'index.php';
+            </script>";
   }
 }
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- css materialize -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-  <!-- materialize icons -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ubah Data</title>
+
+  <!--Import Google Icon Font-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <!-- css lokal -->
-  <link rel="stylesheet" href="style.css">
-  <title>Ubah Data MC Anime</title>
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection" />
+
+  <!-- my css -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
-<body>
-  <div class="container">
-    <form action="" method="post" enctype="multipart/form-data">
-      <input type="hidden" name="id" id="id" value="<?= $kmk["id"] ?>">
-      <div class="card-panel">
-        <h5>Form Ubah Data Main Character Anime</h5>
-        <div class="input-field">
-          <input type="text" name="komik" id="komik" required value="<?= $kmk["komik"]; ?>">
-          <label for="komik">Komik</label>
-        </div>
-        <div class="input-field">
-          <input type="text" name="pengarang" id="pengarang" required value="<?= $kmk["pengarang"]; ?>">
-          <label for="pengarang">Pengarang</label>
-        </div>
-        <div class="file-field input-field">
-          <input type="hidden" name="gambar_lama" value="<?= $kmk['img']; ?>">
-          <div class="btn">
-            <span>File</span>
-            <input type="file" multiple name="gambar" class="gambar" onchange="previewImage()">
-          </div>
-          <div class="file-path-wrapper">
-            <input class="file-path validate" type="text" placeholder="Upload Gambar">
-          </div>
-          <img src="image/<?= $kmk['img']; ?>" width="150px" style="display: block;" class="img-preview">
-        </div>
-        <button class="waves-effect waves-light skyblue darken-1 btn" type="submit" name="ubah">Ubah Data!</button></a>
-        <button class="waves-effect waves-light skyblue darken-1 btn" type="submit">
-          <a href="index.php" style='text-decoration: none; color: white;'>Kembali</a>
-        </button>
-      </div>
-    </form>
-  </div>
+<body style="background-image: url(../assets/slider/ubah1.jpg); background-size: 512px;">
+  <section id="tambah" class="tambah">
+    <div class="container" style="margin-top: 100px;">
+      <div class="row">
+        <div class="col offset-m3 s6">
+          <form action="" method="POST">
+            <input type="hidden" name="id" id="id" value="<?= $tp['id']; ?>">
+            <div class="card-panel m3 s6">
+              <h5 style="text-align: center;">Form Ubah Data</h5>
 
-  <!-- script materialize -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  <!-- script lokal -->
-  <script src="script.js"></script>
+              <div class="input-field">
+                <input type="text" name="judul_buku" id="judul_buku" required value="<?= $tp['judul_buku']; ?>">
+                <label for="judul_buku" class="active">Judul</label>
+              </div>
+
+              <div class="input-field">
+                <input type="text" name="gambar" id="gambar" required value="<?= $tp['gambar']; ?>">
+                <label for="gambar" class="active">gambar</label>
+              </div>
+
+              <div class="input-field">
+                <input type="text" name="penulis" id="penulis" required value="<?= $tp['penulis']; ?>">
+                <label for="penulis" class="active">Penulis</label>
+              </div>
+
+              <button type="submit" name="tambah">Ubah Data!</button>
+              <button type="submit">
+                <a href="admin.php" style="text-decoration: none; color: black;">Kembali</a>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </body>
 
 </html>
